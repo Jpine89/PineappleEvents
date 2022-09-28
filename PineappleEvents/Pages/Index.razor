@@ -1,36 +1,47 @@
 ﻿@page "/"
 @using System.Timers
 
-<div>
-    <div>
-        <p>Event Coming Soon</p>
-        <div>
-            <div>@days</div>
+@if (@clockStillCounting)
+{
+    <div class="all">
+        <p>Shipment Inbound</p>
+        <div class="grid">
+            <div class="value">@days</div>
             <span>Days</span>
         </div>
-        <div>
-            <div>@hours</div>
+        <div class="grid">
+            <div class="value">@hours</div>
             <span>Hours</span>
         </div>
-        <div>
-            <div>@minutes</div>
+        <div class="grid">
+            <div class="value">@minutes</div>
             <span>Minutes</span>
         </div>
-        <div>
-            <div>@seconds</div>
+        <div class="grid">
+            <div class="value">@seconds</div>
             <span>Seconds</span>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="all">
+        <h1>The Drop Off is at the <span>Docks</span></h1>
+         <img src="@imageSource" />
+    </div>
+}
+
 
 @code{
-
+    private Boolean clockStillCounting = true;
+    private string? imageSource;
     private Timer timer = new(1000);
     private int days, hours, minutes, seconds;
     private DateTime comingSoonDate;
 
     protected override async Task OnInitializedAsync()
     {
+        imageSource = $"css/Images/EventSpot1.png";
         //UTC is 5 hours head of Est. So whatever EST time we need is 5 hours head of that.
         comingSoonDate = new DateTime(2022, 10, 8, 3, 0, 0, DateTimeKind.Utc);
         var timeUtc = DateTime.UtcNow;
@@ -47,6 +58,11 @@
         minutes = distance.Minutes;
         seconds = distance.Seconds;
 
+        if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0)
+        {
+            clockStillCounting = false;
+        }
+        
         StateHasChanged();
     }
 }

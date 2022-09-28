@@ -1,0 +1,56 @@
+﻿.content {
+    position: absolute;
+    top: 50%;
+    color: black;
+    display:inline-block
+}
+
+.content h1{
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.content h1 span{
+    color: #ff3753;
+}
+
+.launch-timer {
+    display: flex;
+}
+
+.launch-timer div {
+    flex-basis: 100px;
+}
+
+.launch-timer div p{
+    font-size: 60px;
+}
+
+
+
+span {
+    color: rgb(255, 154, 59);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    font-size: 50px;
+}
+.grid {
+    display: inline-block;
+    grid-template-columns: auto;
+    margin: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.all {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.397);
+    margin-top: 13em;
+}
+p {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    font-size: 60px;
+    color: white;
+}
+.value {
+    color: white;
+    font-size: 80px;
+}
