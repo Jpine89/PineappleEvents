@@ -1,9 +1,52 @@
 ﻿@page "/"
+@using System.Timers
 
-<PageTitle>Index</PageTitle>
+<div>
+    <div>
+        <p>Event Coming Soon</p>
+        <div>
+            <div>@days</div>
+            <span>Days</span>
+        </div>
+        <div>
+            <div>@hours</div>
+            <span>Hours</span>
+        </div>
+        <div>
+            <div>@minutes</div>
+            <span>Minutes</span>
+        </div>
+        <div>
+            <div>@seconds</div>
+            <span>Seconds</span>
+        </div>
+    </div>
+</div>
 
-<h1>Hello, world!</h1>
+@code{
 
-Welcome to your new app.
+    private Timer timer = new(1000);
+    private int days, hours, minutes, seconds;
+    private DateTime comingSoonDate;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override async Task OnInitializedAsync()
+    {
+        //UTC is 5 hours head of Est. So whatever EST time we need is 5 hours head of that.
+        comingSoonDate = new DateTime(2022, 10, 8, 3, 0, 0, DateTimeKind.Utc);
+        var timeUtc = DateTime.UtcNow;
+        timer.Elapsed += (AssemblyDependencyResolver, EventArgs) => CountDown();
+        timer.Start();
+        await base.OnInitializedAsync();
+    }
+
+    private void CountDown()
+    {
+        var distance = comingSoonDate - DateTime.UtcNow;
+        days = distance.Days;
+        hours = distance.Hours;
+        minutes = distance.Minutes;
+        seconds = distance.Seconds;
+
+        StateHasChanged();
+    }
+}
