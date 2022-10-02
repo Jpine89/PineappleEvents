@@ -1,35 +1,38 @@
 ﻿@page "/"
 @using System.Timers
 
-@if (@clockStillCounting)
-{
-    <div class="all">
-        <p>Shipment Inbound</p>
-        <div class="grid">
-            <div class="value">@days</div>
-            <span>Days</span>
-        </div>
-        <div class="grid">
-            <div class="value">@hours</div>
-            <span>Hours</span>
-        </div>
-        <div class="grid">
-            <div class="value">@minutes</div>
-            <span>Minutes</span>
-        </div>
-        <div class="grid">
-            <div class="value">@seconds</div>
-            <span>Seconds</span>
-        </div>
-    </div>
-}
-else
-{
-    <div class="all">
-        <h1>The Drop Off is at the <span>Docks</span></h1>
-         <img src="@imageSource" />
-    </div>
-}
+<div>
+   @if (@clockStillCounting)
+   {
+       <div class="all">
+           <p>Shipment Inbound</p>
+           <div class="grid">
+               <div class="value">@days</div>
+               <span>Days</span>
+           </div>
+           <div class="grid">
+               <div class="value">@hours</div>
+               <span>Hours</span>
+           </div>
+           <div class="grid">
+               <div class="value">@minutes</div>
+               <span>Minutes</span>
+           </div>
+           <div class="grid">
+               <div class="value">@seconds</div>
+               <span>Seconds</span>
+           </div>
+       </div>
+   }
+   else
+   {
+       <div class="all">
+           <h1>The Drop Off is at the <span>Docks</span></h1>
+            <img src="@imageSource" />
+       </div>
+   } 
+</div>
+
 
 
 @code{
@@ -43,7 +46,7 @@ else
     {
         imageSource = $"css/Images/EventSpot1.png";
         //UTC is 5 hours head of Est. So whatever EST time we need is 5 hours head of that.
-        comingSoonDate = new DateTime(2022, 10, 8, 3, 0, 0, DateTimeKind.Utc);
+        comingSoonDate = new DateTime(2022, 10, 8, 2, 0, 0, DateTimeKind.Utc);
         var timeUtc = DateTime.UtcNow;
         timer.Elapsed += (AssemblyDependencyResolver, EventArgs) => CountDown();
         timer.Start();

@@ -1,0 +1,14 @@
+﻿.grid {
+    background-image:
+            repeating-linear-gradient(to right, grey 1px, transparent 1px),
+            repeating-linear-gradient(to bottom, grey 1px, transparent 1px);
+    background-size: 71px 71px;
+    height: 1000px;
+}
+.backImg{
+    background-image:url(css/Images/Gta5Map.png);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -1,0 +1,20 @@
+﻿@page "/map"
+@* <div style="height: 1000px;"> *@
+@*     <div class="grid"></div> *@
+@* </div> *@
+<div style="height: 5285px; width: 3650px;">
+    <div class="backImg"></div>
+</div>
+
+
+
+@code {
+    private string? imageSource;
+
+    protected override async Task OnInitializedAsync()
+    {
+        imageSource = $"./css/Images/Gta5Map.png";
+        
+    }
+
+}
