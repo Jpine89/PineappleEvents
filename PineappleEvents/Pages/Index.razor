@@ -46,7 +46,7 @@
     {
         imageSource = $"css/Images/EventSpot1.png";
         //UTC is 5 hours head of Est. So whatever EST time we need is 5 hours head of that.
-        comingSoonDate = new DateTime(2022, 10, 8, 2, 0, 0, DateTimeKind.Utc);
+        comingSoonDate = new DateTime(2022, 10, 9, 1, 0, 0, DateTimeKind.Utc);
         var timeUtc = DateTime.UtcNow;
         timer.Elapsed += (AssemblyDependencyResolver, EventArgs) => CountDown();
         timer.Start();
