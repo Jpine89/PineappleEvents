@@ -2,68 +2,128 @@
 @using System.Timers
 
 <div>
-   @if (@clockStillCounting)
+   @if (firstClockStillCounting)
    {
        <div class="all">
            <p>Shipment Inbound</p>
            <div class="grid">
-               <div class="value">@days</div>
+               <div class="value">@firstDays</div>
                <span>Days</span>
            </div>
            <div class="grid">
-               <div class="value">@hours</div>
+               <div class="value">@firstHours</div>
                <span>Hours</span>
            </div>
            <div class="grid">
-               <div class="value">@minutes</div>
+               <div class="value">@firstMinutes</div>
                <span>Minutes</span>
            </div>
            <div class="grid">
-               <div class="value">@seconds</div>
+               <div class="value">@firstSeconds</div>
                <span>Seconds</span>
            </div>
        </div>
    }
    else
    {
-       <div class="all">
-           <h1>The Drop Off is at the <span>Docks</span></h1>
-            <img src="@imageSource" />
-       </div>
+       @if (showSecondMap)
+       {
+           
+           <div class="all">
+               <h3 class="center">The shipment has arrived at the <span>Mining Field</span></h3>
+               <img src="@secondImage"/>
+           </div>
+       }
+       else
+       {
+           <div class="all">
+               <p>Area Located - Shipment True Location to be Revealed.</p>
+               <div class="grid">
+                   <div class="value">@secondDays</div>
+                   <span>Days</span>
+               </div>
+               <div class="grid">
+                   <div class="value">@secondHours</div>
+                   <span>Hours</span>
+               </div>
+               <div class="grid">
+                   <div class="value">@secondMinutes</div>
+                   <span>Minutes</span>
+               </div>
+               <div class="grid">
+                   <div class="value">@secondSeconds</div>
+                   <span>Seconds</span>
+               </div>
+           </div>
+           
+           
+           <div class="all">
+               <h3 class="center">The Region where the Shipment is located in</h3>
+               <img src="@firstImage"/>
+           </div>
+       }
    } 
 </div>
 
 
 
 @code{
-    private Boolean clockStillCounting = true;
-    private string? imageSource;
+    private Boolean firstClockStillCounting = true;
+    private Boolean secondClockStillCounting = false;
+    private Boolean showSecondMap = false;
+    private string? firstImage, secondImage;
     private Timer timer = new(1000);
-    private int days, hours, minutes, seconds;
+    private int firstDays, firstHours, firstMinutes, firstSeconds;
+    private int secondDays, secondHours, secondMinutes, secondSeconds;
     private DateTime comingSoonDate;
+    private DateTime finalDateTime;
 
     protected override async Task OnInitializedAsync()
     {
-        imageSource = $"css/Images/EventSpot1.png";
+        firstImage = $"css/Images/SandyRegion.png";
+        secondImage = $"css/Images/MiningLocation.png";
         //UTC is 5 hours head of Est. So whatever EST time we need is 5 hours head of that.
         comingSoonDate = new DateTime(2022, 10, 9, 1, 0, 0, DateTimeKind.Utc);
-        var timeUtc = DateTime.UtcNow;
-        timer.Elapsed += (AssemblyDependencyResolver, EventArgs) => CountDown();
+        finalDateTime = new DateTime(2022, 10, 9, 1, 5, 0, DateTimeKind.Utc);
+        
+        // comingSoonDate = new DateTime(2022, 10, 6, 1, 2, 0, DateTimeKind.Utc);
+        // finalDateTime = new DateTime(2022, 10, 6, 1, 3, 0, DateTimeKind.Utc);
+
+
+
+        timer.Elapsed += (AssemblyDependencyResolver, EventArgs) => CountDown(comingSoonDate, finalDateTime);
+
+
         timer.Start();
         await base.OnInitializedAsync();
     }
 
-    private void CountDown()
+    private void CountDown(DateTime firstCountDown, DateTime secondCountDown)
     {
-        var distance = comingSoonDate - DateTime.UtcNow;
-        days = distance.Days;
-        hours = distance.Hours;
-        minutes = distance.Minutes;
-        seconds = distance.Seconds;
+        TimeSpan firstDistance, secondDistance;
+        firstDistance = firstCountDown - DateTime.UtcNow;
+        secondDistance = secondCountDown - DateTime.UtcNow;
 
-        if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0)
+        firstDays = firstDistance.Days;
+        firstHours = firstDistance.Hours;
+        firstMinutes = firstDistance.Minutes;
+        firstSeconds = firstDistance.Seconds;
+        
+        secondDays = secondDistance.Days;
+        secondHours = secondDistance.Hours;
+        secondMinutes = secondDistance.Minutes;
+        secondSeconds = secondDistance.Seconds;
+
+        if (firstDays <= 0 && firstHours <= 0 && firstMinutes <= 0 && firstSeconds <= 0 && firstClockStillCounting)
         {
-            clockStillCounting = false;
+            firstClockStillCounting = false;
+            secondClockStillCounting = true;
+        }
+        
+        if (secondDays <= 0 && secondHours <= 0 && secondMinutes <= 0 && secondSeconds <= 0 && secondClockStillCounting)
+        {
+            secondClockStillCounting = false;
+            showSecondMap = true;
         }
         
         StateHasChanged();

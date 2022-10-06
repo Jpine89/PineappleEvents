@@ -26,7 +26,12 @@
     font-size: 60px;
 }
 
-
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
 
 span {
     color: rgb(255, 154, 59);
