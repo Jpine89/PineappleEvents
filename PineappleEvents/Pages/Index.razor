@@ -1,5 +1,54 @@
 ﻿@page "/"
 @using System.Timers
+@using Syncfusion.Blazor.Cards
+
+
+<table>
+    <tr>
+        <th></th>
+        <th>
+            <SfCard>
+                <h2 style="text-align: center">Rules and Guidelines for Shipment Event</h2>
+            </SfCard>
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <SfCard>
+                <CardContent Content="•Must represent your group colors/kutte"/>
+            </SfCard>
+        </td>
+        <td>
+            <SfCard>
+                <CardContent Content="•Each Gang/Group has Max Team Size of 4"/>
+            </SfCard>
+        </td>
+        <td>
+            <SfCard>
+                <CardContent Content="•Avoid being Toxic, this is meant to be a fun event"/>
+            </SfCard>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <SfCard>
+                <CardContent Content="•Cops will show up, avoid them if you can"/>
+            </SfCard>
+        </td>
+        <td>
+            <SfCard>
+                <CardContent Content="•This is a Hostile Event, but you aren't required to shoot the goal is to get the guns and get out"/>
+            </SfCard>
+        </td>
+        <td>
+            <SfCard>
+                <CardContent Content="•If you shoot, know who you are shooting"/>
+            </SfCard>
+        </td>
+    </tr>
+</table>
+
 
 <div>
    @if (firstClockStillCounting)
